@@ -1,0 +1,11 @@
+# 依赖
+node_modules/
+
+# 密钥（绝不提交）
+.env
+
+# 本地 Claude 配置与个人技能（不进仓库）
+.claude/
+
+# 扫描版教材 PDF（体积大 + 版权，仅本地保留）
+data/textbook/

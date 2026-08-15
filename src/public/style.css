@@ -1,0 +1,258 @@
+/* 材料科学基础 · 五层解析 —— 简洁、突出原句与五层卡片 */
+
+:root {
+  --bg: #f5f6f8;
+  --panel: #ffffff;
+  --text: #1f2933;
+  --text-muted: #6b7280;
+  --border: #e5e7eb;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --danger: #dc2626;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
+  /* 五层卡片强调色 */
+  --c-original: #2563eb;
+  --c-plain: #0891b2;
+  --c-picture: #7c3aed;
+  --c-mechanism: #059669;
+  --c-exam: #d97706;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.site-header {
+  text-align: center;
+  padding: 40px 20px 16px;
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: 0.5px;
+}
+
+.site-header .subtitle {
+  margin: 8px auto 0;
+  max-width: 560px;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px 16px 64px;
+}
+
+/* 输入面板 */
+.input-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.field { display: block; margin-bottom: 16px; }
+
+.field-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.required { color: var(--danger); }
+
+textarea,
+input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fafbfc;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+textarea { resize: vertical; min-height: 96px; }
+
+textarea:focus,
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  background: #fff;
+}
+
+.meta-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.meta-field { margin-bottom: 16px; }
+
+.btn-primary,
+.btn-secondary {
+  font-family: inherit;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  color: #fff;
+  background: var(--primary);
+  font-weight: 600;
+}
+
+.btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  padding: 10px 18px;
+  color: #fff;
+  background: var(--primary);
+  white-space: nowrap;
+}
+
+.btn-secondary:hover:not(:disabled) { background: var(--primary-hover); }
+.btn-secondary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.error-msg {
+  margin: 12px 0 0;
+  color: var(--danger);
+  font-size: 14px;
+}
+
+/* 五层卡片 */
+.result-section { margin-top: 28px; }
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent, var(--border));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px 20px;
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+  color: var(--accent, var(--text));
+}
+
+.card-body {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 15px;
+}
+
+/* 物理画面示意图 */
+.diagram {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 4px auto 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.diagram + .card-body {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.card-original { --accent: var(--c-original); }
+.card-original .card-body {
+  font-size: 16px;
+  font-weight: 600;
+  background: #f0f6ff;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+.card-plain { --accent: var(--c-plain); }
+.card-picture { --accent: var(--c-picture); }
+.card-mechanism { --accent: var(--c-mechanism); }
+.card-exam { --accent: var(--c-exam); }
+
+/* 参考真题脚注 */
+.exam-refs {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.exam-refs ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.exam-refs li { margin-bottom: 4px; }
+
+/* 追问区 */
+.followup {
+  margin-top: 24px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.followup h2 { margin: 0 0 4px; font-size: 18px; }
+.followup-hint { margin: 0 0 14px; color: var(--text-muted); font-size: 13px; }
+
+.qa-history { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+
+.qa { padding: 10px 12px; border-radius: 8px; font-size: 14px; white-space: pre-wrap; word-break: break-word; }
+
+.qa-q { background: #eef2ff; align-self: flex-end; }
+.qa-a { background: #f3f4f6; }
+
+.followup-input-row {
+  display: flex;
+  gap: 10px;
+}
+
+.followup-input-row input { flex: 1; }
+
+/* 响应式 */
+@media (max-width: 560px) {
+  .meta-row { grid-template-columns: 1fr; }
+  .followup-input-row { flex-direction: column; }
+  .btn-secondary { width: 100%; }
+}

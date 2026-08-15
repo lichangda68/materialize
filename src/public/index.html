@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>材料科学基础 · 五层解析</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <h1>材料科学基础 · 五层解析</h1>
+    <p class="subtitle">粘贴一句教材原句，把抽象概念拆成五层讲透——不只是总结，是真正看懂。</p>
+  </header>
+
+  <main class="container">
+    <!-- 输入区 -->
+    <section class="input-panel">
+      <label class="field">
+        <span class="field-label">教材原句 <span class="required">*</span></span>
+        <textarea id="text-input" rows="4"
+          placeholder="例如：滑移面和滑移方向往往是金属晶体中原子排列最密的晶面和晶向。"></textarea>
+      </label>
+      <div class="meta-row">
+        <label class="field meta-field">
+          <span class="field-label">章节（可选）</span>
+          <input id="chapter-input" type="text" placeholder="如：第 3 章 晶体缺陷" />
+        </label>
+        <label class="field meta-field">
+          <span class="field-label">页码（可选）</span>
+          <input id="page-input" type="text" placeholder="如：P.87" />
+        </label>
+      </div>
+      <button id="parse-btn" class="btn-primary" type="button">开始解析</button>
+      <p id="error-msg" class="error-msg" hidden></p>
+    </section>
+
+    <!-- 结果区 -->
+    <section id="result-section" class="result-section" hidden>
+      <div id="cards" class="cards"></div>
+
+      <div class="followup">
+        <h2>继续追问</h2>
+        <p class="followup-hint">针对上面的解释继续提问，助教会结合上下文回答。</p>
+        <div id="qa-history" class="qa-history"></div>
+        <div class="followup-input-row">
+          <input id="followup-input" type="text" placeholder="例如：为什么位错能强化金属？" />
+          <button id="followup-btn" class="btn-secondary" type="button">追问</button>
+        </div>
+        <p id="followup-error" class="error-msg" hidden></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
