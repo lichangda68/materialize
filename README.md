@@ -6,7 +6,7 @@
 
 1. **教材原句** — 忠实回显输入
 2. **通俗解释** — 用大白话讲清
-3. **物理画面** — 脑海里能「看到」的具体场景
+3. **物理画面** — 用现实生活比喻讲清（配卡通示意图）
 4. **底层机理与因果** — 讲清「为什么」
 5. **考试理解与常见误区** — 怎么考、易混点（可引用真实真题）
 
@@ -80,7 +80,7 @@ test/            # node:test 单元/集成测试
 
 ## 教材示意图库
 
-「物理画面」卡片按优先级展示：**教材图库 > 自画 SVG**。把教材里的关键示意图按概念关键词命名（如 `位错.png`、`铁碳相图.png`）放进 `data/figures/`，命中时自动用教材原图，未命中回退到 AI 自画的 SVG。详见 [data/figures/README.md](data/figures/README.md)。
+「物理画面」卡片按优先级展示：**教材图库 > 卡通比喻图**。把教材里的关键示意图按概念关键词命名（如 `位错.png`、`铁碳相图.png`）放进 `data/figures/`，命中时自动用教材原图；未命中时 AI 会画一张卡通风格的比喻场景图（如位错塞积 → 高速追尾）。详见 [data/figures/README.md](data/figures/README.md)。
 
 ## 测试
 
@@ -88,10 +88,11 @@ test/            # node:test 单元/集成测试
 npm test
 ```
 
-三组测试（无需真实 API key，用 stub 的 `chat`/`retrieve`）：
+四组测试（无需真实 API key，用 stub 的 `chat`/`retrieve`）：
 
-- `test/schema.test.mjs` — 五键齐全 / 缺字段 / 非 JSON / 代码块容错
+- `test/schema.test.mjs` — 五键齐全 / 缺字段 / 非 JSON / 代码块容错 / null 保护
 - `test/retrieval.test.mjs` — 切题 / 命中 / 未命中 / 条数上限
+- `test/figure.test.mjs` — 教材图库概念匹配
 - `test/parse.test.mjs` — 空输入 400 / 长文本 400 / LLM 抛错 502 / 成功返回五层 / 追问
 
 ## 设计约束（遵守「禁止事项」）

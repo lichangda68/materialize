@@ -45,20 +45,46 @@ export function parseResult(raw) {
  */
 export function extractJson(raw) {
   if (!raw || typeof raw !== 'string') throw new SchemaError('AI 返回内容为空');
-  // 先尝试直接解析
-  try {
-    return JSON.parse(raw);
-  } catch {
-    /* 继续尝试提取子串 */
-  }
-  // 提取第一个 {...} 子串（匹配到最后一个右花括号，尽量覆盖嵌套）
-  const m = raw.match(/\{[\s\S]*\}/);
-  if (m) {
-    try {
-      return JSON.parse(m[0]);
-    } catch {
-      /* 继续抛错 */
+
+  // 先尝试整体解析
+  const direct = tryParseObject(raw);
+  if (direct !== undefined) return direct;
+
+  // 提取第一个「平衡的」JSON 对象：从首个 { 到与之配对的 }，忽略字符串内的花括号
+  const start = raw.indexOf('{');
+  if (start === -1) throw new SchemaError('AI 返回内容不是有效 JSON');
+
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+  for (let i = start; i < raw.length; i++) {
+    const ch = raw[i];
+    if (inString) {
+      if (escaped) escaped = false;
+      else if (ch === '\\') escaped = true;
+      else if (ch === '"') inString = false;
+    } else if (ch === '"') {
+      inString = true;
+    } else if (ch === '{') {
+      depth++;
+    } else if (ch === '}') {
+      depth--;
+      if (depth === 0) {
+        const parsed = tryParseObject(raw.slice(start, i + 1));
+        if (parsed !== undefined) return parsed;
+        break;
+      }
     }
   }
   throw new SchemaError('AI 返回内容不是有效 JSON');
+}
+
+// 解析 JSON 且要求结果是普通对象（排除 null / 数组 / 原始值）；失败返回 undefined
+function tryParseObject(text) {
+  try {
+    const v = JSON.parse(text);
+    return v !== null && typeof v === 'object' && !Array.isArray(v) ? v : undefined;
+  } catch {
+    return undefined;
+  }
 }

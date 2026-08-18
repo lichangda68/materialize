@@ -11,6 +11,8 @@ import { findFigure } from './figures.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const MAX_TEXT_LEN = 2000; // 单句输入长度上限
+const MAX_QUESTION_LEN = 500; // 追问问题长度上限
+const MAX_CONTEXT_LEN = 20000; // 追问上下文长度上限
 
 /**
  * 创建 Express 应用。
@@ -72,6 +74,12 @@ export function createApp({ chat, retrieve, config }) {
     const { question, context } = req.body || {};
     if (typeof question !== 'string' || question.trim() === '') {
       return res.status(400).json({ error: '请输入要追问的问题' });
+    }
+    if (question.length > MAX_QUESTION_LEN) {
+      return res.status(400).json({ error: `追问内容过长，请控制在 ${MAX_QUESTION_LEN} 字以内` });
+    }
+    if (typeof context === 'string' && context.length > MAX_CONTEXT_LEN) {
+      return res.status(400).json({ error: '追问上下文过长，请减少历史记录' });
     }
 
     try {

@@ -127,3 +127,13 @@ test('追问：成功返回答案文本', async () => {
     server.close();
   }
 });
+
+test('追问：问题过长返回 400', async () => {
+  const { server, baseUrl } = await start(makeApp());
+  try {
+    const { status } = await postJson(baseUrl, '/api/followup', { question: 'a'.repeat(501) });
+    assert.equal(status, 400);
+  } finally {
+    server.close();
+  }
+});

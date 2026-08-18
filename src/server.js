@@ -11,7 +11,8 @@ if (!config.apiKey) {
   console.warn('[提示] 未检测到 DEEPSEEK_API_KEY，请复制 .env.example 为 .env 并填入密钥后再启动。');
 }
 
-const PORT = Number(process.env.PORT || 3001);
+const rawPort = Number(process.env.PORT);
+const PORT = Number.isInteger(rawPort) && rawPort > 0 && rawPort < 65536 ? rawPort : 3001;
 // 默认只监听本机回环地址，避免局域网内他人访问并消耗 API 额度；如需局域网访问可显式设置 HOST
 const HOST = process.env.HOST || '127.0.0.1';
 app.listen(PORT, HOST, () => {

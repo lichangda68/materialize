@@ -81,3 +81,20 @@ test('physical_picture_svg 透传：有则保留、无则空串', () => {
   assert.ok(withSvg.physical_picture_svg.startsWith('<svg'));
   assert.equal(parseResult(JSON.stringify(base)).physical_picture_svg, '');
 });
+
+test('LLM 返回 null 时抛 SchemaError（而非 TypeError）', () => {
+  assert.throws(() => parseResult('null'), SchemaError);
+  assert.throws(() => parseResult('  null  '), SchemaError);
+});
+
+test('提取 JSON 能容错末尾多余花括号（不再贪心匹配）', () => {
+  const valid = JSON.stringify({
+    original: 'a',
+    plain_explanation: 'b',
+    physical_picture: 'c',
+    mechanism: 'd',
+    exam_traps: 'e',
+  });
+  const r = parseResult(valid + ' （注：参见教材第3章}');
+  assert.equal(r.original, 'a');
+});
