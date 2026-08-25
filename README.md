@@ -23,7 +23,9 @@
 
 ```bash
 # 1. 安装依赖
-npm install
+git clone https://github.com/lichangda68/materialize
+cd materialize
+前后端依赖可直接交给智能体进行安装
 
 # 2. 配置密钥（.env 已被 .gitignore 忽略，不会提交）
 cp .env.example .env
@@ -31,10 +33,15 @@ cp .env.example .env
 
 # 3. 启动
 npm start
-# 打开 http://localhost:3001
+# 浏览器直接打开 http://localhost:3001，无法使用可以询问claude/deepseek等智能体原因
 ```
 
 > 未配置密钥时服务仍会启动、页面可访问，但调用解析会返回友好的「密钥无效」提示。
+
+## 环境要求
+
+node.js
+npm
 
 ## 目录结构
 
