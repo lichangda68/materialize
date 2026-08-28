@@ -114,3 +114,7 @@ npm test
 
 - `retrieval.js` 的 `retrieve(text)` 是单一检索接口，未来可替换为向量检索或接入 `data/textbook/参考课本.pdf` 的 PDF 划词，无需改动其它模块。
 - 追问的后端无状态、前端传历史，未来若需多用户会话可平滑迁移到服务端存储。
+
+## 您的鼓励是我前进的动力
+
+<img width="1263" height="1719" alt="4035768e0d40b0316d185caadcc1820a" src="https://github.com/user-attachments/assets/fb9db3a1-b662-4f37-841f-89e59f4dd942" />
